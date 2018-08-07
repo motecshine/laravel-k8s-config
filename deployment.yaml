@@ -1,0 +1,62 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: laravel
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: laravel
+        version: testing
+    spec:
+      containers:
+      - name: code
+        image: motecshine/code-for-k8s:v0.1.0
+        volumeMounts:
+        - mountPath: /data2
+          name: code
+      - name: fpm
+        image: motecshine/laravel-fpm-for-k8s:v0.1.0
+        imagePullPolicy: IfNotPresent
+        resources:
+           limits:
+             cpu: 350m
+             memory: 350Mi
+           requests:
+             cpu: 50m
+             memory: 50Mi
+        ports:
+        - name: fpm
+          containerPort: 9000
+        volumeMounts:
+        - mountPath: /data/code
+          name: code
+        - mountPath: /var/log
+          name: log  
+      - name: laravel-nginx
+        image: motecshine/laravel-nginx-for-k8s:v0.1.0
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: 350m
+            memory: 350Mi
+          requests:
+            cpu: 50m
+            memory: 50Mi
+        ports:
+        - name: ivp-nginx
+          containerPort: 80
+        volumeMounts:
+        - mountPath: /data/code
+          name: code
+        - mountPath: /var/log
+          name: log  
+      volumes:
+      - name: code
+        emptyDir: {}
+      - name: log
+        hostPath:
+          path: /var/log
+          type: Directory
