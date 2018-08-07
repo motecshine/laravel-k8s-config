@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: code
-        image: motecshine/code-for-k8s:v0.1.0
+        image: motecshine/code-for-k8s:v0.1.1
         volumeMounts:
         - mountPath: /data2
           name: code
