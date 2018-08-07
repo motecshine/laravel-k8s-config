@@ -51,7 +51,7 @@ spec:
         volumeMounts:
         - mountPath: /data/code
           name: code
-        - mountPath: /var/log
+        - mountPath: /var/log/nginx
           name: log  
       volumes:
       - name: code
