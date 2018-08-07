@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: laravel-ingress
+  namespace: default
+  labels:
+    app: laravel-ingress
+spec:
+  rules:
+  - host: laravel.test
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: laravel-service
+          servicePort: 80
