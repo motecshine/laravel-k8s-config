@@ -36,7 +36,7 @@ spec:
         - mountPath: /var/log
           name: log  
       - name: laravel-nginx
-        image: motecshine/laravel-nginx-for-k8s:v0.1.0
+        image: motecshine/laravel-nginx-for-k8s:v0.1.1
         imagePullPolicy: IfNotPresent
         resources:
           limits:
